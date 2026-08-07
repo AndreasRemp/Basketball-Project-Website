@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Basketball Lab</title>
+  <link rel="icon" type="image/png" href="assets/img/LOGO.png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <header class="siteHeader">
+    <div class="headerInner">
+      <a class="brand" href="#">
+        <img src="assets/img/LOGO.png" alt="Basketball Lab logo" />
+        <span>Basketball Lab</span>
+      </a>
+
+      <nav class="navLinks">
+        <a href="#features">Features</a>
+        <a href="#demo">Prototype</a>
+        <a href="#how">How it works</a>
+        <a class="navCta waitlistLink" href="#" target="_blank" rel="noreferrer">
+          Get pre-launch updates
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="heroSection">
+      <div class="heroCopy">
+        <div class="prelaunchBadge">PRE-LAUNCH</div>
+
+        <h1>Your basketball shot, broken down by AI.</h1>
+
+        <p class="heroSubtitle">
+          Basketball Lab turns a shooting video into clear mechanics, joint angles,
+          trajectory metrics, release visuals, and coaching feedback.
+        </p>
+
+        <div class="heroActions">
+          <a class="primaryButton waitlistLink" href="#" target="_blank" rel="noreferrer">
+            Get pre-launch updates
+          </a>
+          <a class="secondaryButton" href="#demo">See prototype demo</a>
+        </div>
+
+        <div class="proofRow">
+          <span>Working CV pipeline</span>
+          <span>Mobile prototype in testing</span>
+          <span>AI feedback layer</span>
+        </div>
+      </div>
+
+      <div class="heroVisual">
+        <div class="floatingPhone">
+          <div class="phoneTop">
+            <span>Prototype output</span>
+            <strong>Made shot</strong>
+          </div>
+
+          <div class="phoneImage">
+            <img src="assets/img/release.png" alt="Release frame preview" />
+          </div>
+
+          <div class="miniMetrics">
+            <div>
+              <span>Release</span>
+              <strong>57°</strong>
+            </div>
+            <div>
+              <span>Elbow</span>
+              <strong>175°</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="floatingCard cardOne">
+          <span>Entry angle</span>
+          <strong>61°</strong>
+        </div>
+
+        <div class="floatingCard cardTwo">
+          <span>Release height</span>
+          <strong>2.21 m</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="problemSection">
+      <div class="sectionLabel">The problem</div>
+      <h2>Video alone does not tell you what to fix.</h2>
+      <p>
+        You can film your shot and still miss the important details. Basketball Lab is built
+        to turn motion into measurable feedback: release angle, joint mechanics,
+        trajectory, and practical coaching cues.
+      </p>
+    </section>
+
+    <section class="featuresSection" id="features">
+      <div class="sectionHeader">
+        <div class="sectionLabel">Features</div>
+        <h2>Readable feedback from real shot data.</h2>
+      </div>
+
+      <div class="featureGrid">
+        <div class="featureCard">
+          <span>01</span>
+          <h3>Release analysis</h3>
+          <p>Estimate release angle, release height, and entry angle from the shooting motion.</p>
+        </div>
+
+        <div class="featureCard">
+          <span>02</span>
+          <h3>Joint mechanics</h3>
+          <p>Track elbow and knee angles around release to evaluate sequence and extension.</p>
+        </div>
+
+        <div class="featureCard">
+          <span>03</span>
+          <h3>Visual outputs</h3>
+          <p>Review the release frame, angle plots, video output, and generated metrics.</p>
+        </div>
+
+        <div class="featureCard">
+          <span>04</span>
+          <h3>AI coaching layer</h3>
+          <p>Convert measurements into concise, practical feedback that is easy to understand.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="demoSection" id="demo">
+      <div class="sectionHeader">
+        <div class="sectionLabel">Prototype demo</div>
+        <h2>Example output from the current pipeline.</h2>
+        <p>
+          This section uses the same resources you already generated: video, release frame,
+          angle plots, metrics, and AI feedback.
+        </p>
+      </div>
+
+      <div class="demoGrid">
+        <div class="panel videoPanel">
+          <div class="panelTitle" id="videoTitle">Shot Analysis</div>
+
+          <div class="videoShell">
+            <video id="demoVideo" class="demoVideo" controls playsinline preload="metadata"></video>
+            <div class="overlayBadge" id="shotStamp">Shot Analysis</div>
+            <div class="overlayMeta" id="shotMeta">18/1/2026 • 7:23 PM</div>
+          </div>
+        </div>
+
+        <div class="metricGrid" id="metricGrid"></div>
+      </div>
+
+      <div class="visualGrid">
+        <div class="visualLeft">
+          <div class="panel chartPanel">
+            <div class="panelTitle">Elbow Angle</div>
+            <div class="imgShell">
+              <img id="chart1Img" alt="Elbow angle chart" />
+            </div>
+          </div>
+
+          <div class="panel chartPanel">
+            <div class="panelTitle">Knee Angle</div>
+            <div class="imgShell">
+              <img id="chart2Img" alt="Knee angle chart" />
+            </div>
+          </div>
+        </div>
+
+        <div class="panel releasePanel">
+          <div class="panelTitle">Release Frame</div>
+          <div class="imgShell tallShell">
+            <img id="releaseImg" alt="Release frame" />
+          </div>
+        </div>
+      </div>
+
+      <div class="panel feedbackPanel">
+        <div class="panelTitle">AI Coach Feedback</div>
+
+        <div class="feedback">
+          <div class="feedbackPreview" id="feedbackPreview"></div>
+
+          <button class="showMoreBtn" id="toggleFeedback" type="button">
+            Show more
+          </button>
+
+          <div class="feedbackFull hidden" id="feedbackFull"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="howSection" id="how">
+      <div class="sectionHeader">
+        <div class="sectionLabel">How it works</div>
+        <h2>From video to feedback in three steps.</h2>
+      </div>
+
+      <div class="stepsGrid">
+        <div class="stepCard">
+          <span>1</span>
+          <h3>Record a shot</h3>
+          <p>Use a normal basketball shooting video from a phone camera.</p>
+        </div>
+
+        <div class="stepCard">
+          <span>2</span>
+          <h3>Run the pipeline</h3>
+          <p>The system extracts pose, release frame, joint angles, and trajectory metrics.</p>
+        </div>
+
+        <div class="stepCard">
+          <span>3</span>
+          <h3>Read the feedback</h3>
+          <p>The output becomes charts, key metrics, release visuals, and AI coaching notes.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="comparisonSection">
+      <div class="sectionHeader">
+        <div class="sectionLabel">Why it matters</div>
+        <h2>More structured than just watching your own video.</h2>
+      </div>
+
+      <div class="comparisonGrid">
+        <div class="comparisonCard">
+          <h3>Filming yourself</h3>
+          <p>You see the shot, but you still need to guess what changed and what matters.</p>
+        </div>
+
+        <div class="comparisonCard">
+          <h3>Generic coaching tips</h3>
+          <p>Useful, but not based on your own release frame, angle data, and motion sequence.</p>
+        </div>
+
+        <div class="comparisonCard active">
+          <h3>Basketball Lab</h3>
+          <p>Combines video, computer vision metrics, visual outputs, and AI-generated feedback.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="signupSection" id="signup">
+      <div class="signupPanel">
+        <div class="signupText">
+          <div class="sectionLabel">Pre-launch updates</div>
+          <h2>Follow the product before release.</h2>
+          <p>
+            The pipeline works and a mobile prototype is already in testing.
+            Leave your email to receive future updates and early access news.
+          </p>
+        </div>
+
+        <a class="signupButton waitlistLink" href="#" target="_blank" rel="noreferrer">
+          Get pre-launch updates
+        </a>
+      </div>
+    </section>
+
+    <section class="faqSection">
+      <div class="sectionHeader">
+        <div class="sectionLabel">FAQ</div>
+        <h2>Simple answers.</h2>
+      </div>
+
+      <div class="faqGrid">
+        <div class="faqItem">
+          <h3>Is this an AI app?</h3>
+          <p>Yes. The product uses computer vision outputs and an AI feedback layer to explain shot mechanics.</p>
+        </div>
+
+        <div class="faqItem">
+          <h3>Is it already on app stores?</h3>
+          <p>No. It is currently a pre-launch prototype with a working pipeline and mobile testing version.</p>
+        </div>
+
+        <div class="faqItem">
+          <h3>Do I need special hardware?</h3>
+          <p>The concept is based on normal video input, not expensive tracking equipment.</p>
+        </div>
+
+        <div class="faqItem">
+          <h3>What does the prototype analyze?</h3>
+          <p>Release angle, elbow angle, knee angle, entry angle, release height, release frame, and feedback.</p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div id="noteText"></div>
+      <div>Basketball Lab Pre-launch</div>
+    </footer>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
