@@ -1,303 +1,411 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Basketball Lab</title>
-  <link rel="icon" type="image/png" href="assets/img/LOGO.png" />
-  <link rel="stylesheet" href="styles.css" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Shootalyze | See the numbers behind your shot</title>
+<meta name="description" content="Film a normal shooting video. Shootalyze measures release angle, joint mechanics and entry angle, then tells you what to fix." />
+<link rel="icon" type="image/png" href="assets/img/favicon.png" />
+<link rel="apple-touch-icon" href="assets/img/logo-mark.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css" />
 </head>
-
 <body>
-  <header class="siteHeader">
-    <div class="headerInner">
-      <a class="brand" href="#">
-        <img src="assets/img/LOGO.png" alt="Basketball Lab logo" />
-        <span>Basketball Lab</span>
-      </a>
 
-      <nav class="navLinks">
-        <a href="#features">Features</a>
-        <a href="#demo">Prototype</a>
-        <a href="#how">How it works</a>
-        <a class="navCta waitlistLink" href="#" target="_blank" rel="noreferrer">
-          Get pre-launch updates
-        </a>
-      </nav>
-    </div>
-  </header>
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
 
-  <main>
-    <section class="heroSection">
-      <div class="heroCopy">
-        <div class="prelaunchBadge">PRE-LAUNCH</div>
+<header class="site-header" id="siteHeader">
+  <div class="wrap header-inner">
+    <a class="brand" href="#top">
+      <img class="brand-glyph" src="assets/img/logo-mark.png" alt="" width="256" height="256" />
+      <span class="brand-word">Shootalyze</span>
+    </a>
+    <button class="nav-toggle" id="navToggle" type="button"
+            aria-label="Open menu" aria-expanded="false" aria-controls="primaryNav">
+      <span class="nav-toggle-box" aria-hidden="true">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </span>
+    </button>
 
-        <h1>Your basketball shot, broken down by AI.</h1>
+    <nav class="nav-links" id="primaryNav" aria-label="Primary">
+      <a href="#output">Output</a>
+      <a href="#how">How it works</a>
+      <a href="#faq">FAQ</a>
+      <a class="nav-cta waitlist-link" href="#" target="_blank" rel="noreferrer">Get early access</a>
+    </nav>
+  </div>
+</header>
 
-        <p class="heroSubtitle">
-          Basketball Lab turns a shooting video into clear mechanics, joint angles,
-          trajectory metrics, release visuals, and coaching feedback.
-        </p>
+<main id="top">
 
-        <div class="heroActions">
-          <a class="primaryButton waitlistLink" href="#" target="_blank" rel="noreferrer">
-            Get pre-launch updates
-          </a>
-          <a class="secondaryButton" href="#demo">See prototype demo</a>
-        </div>
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="hero-glow" aria-hidden="true"></div>
+  <div class="wrap hero-grid">
 
-        <div class="proofRow">
-          <span>Working CV pipeline</span>
-          <span>Mobile prototype in testing</span>
-          <span>AI feedback layer</span>
-        </div>
-      </div>
+    <div class="hero-copy">
+      <span class="badge" data-rise="1">
+        <span class="badge-dot"></span>PRE-LAUNCH
+      </span>
 
-      <div class="heroVisual">
-        <div class="floatingPhone">
-          <div class="phoneTop">
-            <span>Prototype output</span>
-            <strong>Made shot</strong>
-          </div>
+      <h1>
+        <span class="line" data-rise="2">Stop guessing</span>
+        <span class="line" data-rise="3">why it missed.</span>
+      </h1>
 
-          <div class="phoneImage">
-            <img src="assets/img/release.png" alt="Release frame preview" />
-          </div>
-
-          <div class="miniMetrics">
-            <div>
-              <span>Release</span>
-              <strong>57°</strong>
-            </div>
-            <div>
-              <span>Elbow</span>
-              <strong>175°</strong>
-            </div>
-          </div>
-        </div>
-
-        <div class="floatingCard cardOne">
-          <span>Entry angle</span>
-          <strong>61°</strong>
-        </div>
-
-        <div class="floatingCard cardTwo">
-          <span>Release height</span>
-          <strong>2.21 m</strong>
-        </div>
-      </div>
-    </section>
-
-    <section class="problemSection">
-      <div class="sectionLabel">The problem</div>
-      <h2>Video alone does not tell you what to fix.</h2>
-      <p>
-        You can film your shot and still miss the important details. Basketball Lab is built
-        to turn motion into measurable feedback: release angle, joint mechanics,
-        trajectory, and practical coaching cues.
+      <p class="hero-sub" data-rise="4">
+        Film one shot on your phone. Shootalyze returns the release angle, the joint
+        mechanics and the entry angle, then tells you the single thing to change.
       </p>
-    </section>
 
-    <section class="featuresSection" id="features">
-      <div class="sectionHeader">
-        <div class="sectionLabel">Features</div>
-        <h2>Readable feedback from real shot data.</h2>
-      </div>
-
-      <div class="featureGrid">
-        <div class="featureCard">
-          <span>01</span>
-          <h3>Release analysis</h3>
-          <p>Estimate release angle, release height, and entry angle from the shooting motion.</p>
-        </div>
-
-        <div class="featureCard">
-          <span>02</span>
-          <h3>Joint mechanics</h3>
-          <p>Track elbow and knee angles around release to evaluate sequence and extension.</p>
-        </div>
-
-        <div class="featureCard">
-          <span>03</span>
-          <h3>Visual outputs</h3>
-          <p>Review the release frame, angle plots, video output, and generated metrics.</p>
-        </div>
-
-        <div class="featureCard">
-          <span>04</span>
-          <h3>AI coaching layer</h3>
-          <p>Convert measurements into concise, practical feedback that is easy to understand.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="demoSection" id="demo">
-      <div class="sectionHeader">
-        <div class="sectionLabel">Prototype demo</div>
-        <h2>Example output from the current pipeline.</h2>
-        <p>
-          This section uses the same resources you already generated: video, release frame,
-          angle plots, metrics, and AI feedback.
-        </p>
-      </div>
-
-      <div class="demoGrid">
-        <div class="panel videoPanel">
-          <div class="panelTitle" id="videoTitle">Shot Analysis</div>
-
-          <div class="videoShell">
-            <video id="demoVideo" class="demoVideo" controls playsinline preload="metadata"></video>
-            <div class="overlayBadge" id="shotStamp">Shot Analysis</div>
-            <div class="overlayMeta" id="shotMeta">18/1/2026 • 7:23 PM</div>
-          </div>
-        </div>
-
-        <div class="metricGrid" id="metricGrid"></div>
-      </div>
-
-      <div class="visualGrid">
-        <div class="visualLeft">
-          <div class="panel chartPanel">
-            <div class="panelTitle">Elbow Angle</div>
-            <div class="imgShell">
-              <img id="chart1Img" alt="Elbow angle chart" />
-            </div>
-          </div>
-
-          <div class="panel chartPanel">
-            <div class="panelTitle">Knee Angle</div>
-            <div class="imgShell">
-              <img id="chart2Img" alt="Knee angle chart" />
-            </div>
-          </div>
-        </div>
-
-        <div class="panel releasePanel">
-          <div class="panelTitle">Release Frame</div>
-          <div class="imgShell tallShell">
-            <img id="releaseImg" alt="Release frame" />
-          </div>
-        </div>
-      </div>
-
-      <div class="panel feedbackPanel">
-        <div class="panelTitle">AI Coach Feedback</div>
-
-        <div class="feedback">
-          <div class="feedbackPreview" id="feedbackPreview"></div>
-
-          <button class="showMoreBtn" id="toggleFeedback" type="button">
-            Show more
-          </button>
-
-          <div class="feedbackFull hidden" id="feedbackFull"></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="howSection" id="how">
-      <div class="sectionHeader">
-        <div class="sectionLabel">How it works</div>
-        <h2>From video to feedback in three steps.</h2>
-      </div>
-
-      <div class="stepsGrid">
-        <div class="stepCard">
-          <span>1</span>
-          <h3>Record a shot</h3>
-          <p>Use a normal basketball shooting video from a phone camera.</p>
-        </div>
-
-        <div class="stepCard">
-          <span>2</span>
-          <h3>Run the pipeline</h3>
-          <p>The system extracts pose, release frame, joint angles, and trajectory metrics.</p>
-        </div>
-
-        <div class="stepCard">
-          <span>3</span>
-          <h3>Read the feedback</h3>
-          <p>The output becomes charts, key metrics, release visuals, and AI coaching notes.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="comparisonSection">
-      <div class="sectionHeader">
-        <div class="sectionLabel">Why it matters</div>
-        <h2>More structured than just watching your own video.</h2>
-      </div>
-
-      <div class="comparisonGrid">
-        <div class="comparisonCard">
-          <h3>Filming yourself</h3>
-          <p>You see the shot, but you still need to guess what changed and what matters.</p>
-        </div>
-
-        <div class="comparisonCard">
-          <h3>Generic coaching tips</h3>
-          <p>Useful, but not based on your own release frame, angle data, and motion sequence.</p>
-        </div>
-
-        <div class="comparisonCard active">
-          <h3>Basketball Lab</h3>
-          <p>Combines video, computer vision metrics, visual outputs, and AI-generated feedback.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="signupSection" id="signup">
-      <div class="signupPanel">
-        <div class="signupText">
-          <div class="sectionLabel">Pre-launch updates</div>
-          <h2>Follow the product before release.</h2>
-          <p>
-            The pipeline works and a mobile prototype is already in testing.
-            Leave your email to receive future updates and early access news.
-          </p>
-        </div>
-
-        <a class="signupButton waitlistLink" href="#" target="_blank" rel="noreferrer">
-          Get pre-launch updates
+      <div class="hero-actions" data-rise="5">
+        <a class="btn btn-primary waitlist-link" href="#" target="_blank" rel="noreferrer">
+          Get early access
+          <svg class="btn-arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M11 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
-      </div>
-    </section>
-
-    <section class="faqSection">
-      <div class="sectionHeader">
-        <div class="sectionLabel">FAQ</div>
-        <h2>Simple answers.</h2>
+        <a class="btn btn-ghost" href="#output">See real output</a>
       </div>
 
-      <div class="faqGrid">
-        <div class="faqItem">
-          <h3>Is this an AI app?</h3>
-          <p>Yes. The product uses computer vision outputs and an AI feedback layer to explain shot mechanics.</p>
+      <div class="hero-stats" data-rise="6">
+        <div class="hstat">
+          <span class="hstat-num" data-count="57" data-suffix="°">0</span>
+          <span class="hstat-label">release angle</span>
         </div>
-
-        <div class="faqItem">
-          <h3>Is it already on app stores?</h3>
-          <p>No. It is currently a pre-launch prototype with a working pipeline and mobile testing version.</p>
+        <div class="hstat">
+          <span class="hstat-num" data-count="175" data-suffix="°">0</span>
+          <span class="hstat-label">elbow at release</span>
         </div>
-
-        <div class="faqItem">
-          <h3>Do I need special hardware?</h3>
-          <p>The concept is based on normal video input, not expensive tracking equipment.</p>
-        </div>
-
-        <div class="faqItem">
-          <h3>What does the prototype analyze?</h3>
-          <p>Release angle, elbow angle, knee angle, entry angle, release height, release frame, and feedback.</p>
+        <div class="hstat">
+          <span class="hstat-num" data-count="2.21" data-suffix="m" data-decimals="2">0</span>
+          <span class="hstat-label">release height</span>
         </div>
       </div>
-    </section>
+    </div>
 
-    <footer class="footer">
-      <div id="noteText"></div>
-      <div>Basketball Lab Pre-launch</div>
-    </footer>
-  </main>
+    <div class="hero-visual" data-rise="4">
+      <div class="scope" id="heroScope">
+        <div class="scope-img">
+          <img src="assets/img/release.png" alt="A real shot with the fitted ball trajectory overlaid on the release frame" />
+        </div>
 
-  <script src="app.js"></script>
+        <span class="corner tl"></span><span class="corner tr"></span>
+        <span class="corner bl"></span><span class="corner br"></span>
+        <span class="scan" aria-hidden="true"></span>
+
+        <div class="scope-tag">
+          <span class="dot"></span>TRAJECTORY LOCKED
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ MARQUEE ============ -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>RELEASE ANGLE</span><i></i><span>ELBOW ANGLE</span><i></i><span>ENTRY ANGLE</span><i></i>
+    <span>KNEE EXTENSION</span><i></i><span>RELEASE HEIGHT</span><i></i><span>ARC CONSISTENCY</span><i></i>
+    <span>RELEASE ANGLE</span><i></i><span>ELBOW ANGLE</span><i></i><span>ENTRY ANGLE</span><i></i>
+    <span>KNEE EXTENSION</span><i></i><span>RELEASE HEIGHT</span><i></i><span>ARC CONSISTENCY</span><i></i>
+  </div>
+</div>
+
+<!-- ============ PROBLEM ============ -->
+<section class="section problem">
+  <div class="wrap">
+    <div class="problem-grid">
+      <div data-reveal>
+        <p class="eyebrow">The gap</p>
+        <h2 class="h2">Replay shows you<br><em>that</em> it missed.<br>Not <em>why</em>.</h2>
+      </div>
+      <div class="problem-side" data-reveal data-delay="1">
+        <p>
+          You can watch the same clip twenty times and still be guessing. "Shoot it flatter"
+          is an opinion. 57 degrees is a measurement.
+        </p>
+        <p>
+          The variables that decide a make from a miss are angles, and angles are exactly
+          what the human eye is worst at judging at full speed.
+        </p>
+        <ul class="tick-list">
+          <li>A flat release you cannot see in real time</li>
+          <li>An elbow that never fully extends</li>
+          <li>An entry angle too steep to repeat</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ OUTPUT / DEMO ============ -->
+<section class="section output" id="output">
+  <div class="wrap">
+    <div class="section-head" data-reveal>
+      <p class="eyebrow"><span class="live"></span>Real pipeline output</p>
+      <h2 class="h2">This is not a mockup.</h2>
+      <p class="lead">
+        Every number, chart and line of feedback below came out of the pipeline for one real
+        shot. Nothing here is illustrative.
+      </p>
+    </div>
+
+    <div class="output-stage" data-reveal>
+      <div class="panel video-panel">
+        <div class="panel-bar">
+          <span class="bar-dots"><i></i><i></i><i></i></span>
+          <span class="bar-title">shot_analysis.mp4</span>
+        </div>
+        <div class="video-shell">
+          <video id="demoVideo" controls playsinline preload="metadata" poster="assets/img/release.png"></video>
+        </div>
+      </div>
+
+      <div class="panel metrics-panel">
+        <div class="panel-bar"><span class="bar-title">Measured</span></div>
+        <div class="metric-list" id="metricList"></div>
+      </div>
+    </div>
+
+    <div class="output-charts">
+      <div class="panel chart-panel" data-reveal>
+        <div class="panel-bar"><span class="bar-title">Elbow angle over frames</span></div>
+        <div class="chart-shell"><img src="assets/img/elbow.png" alt="Elbow angle plotted across frames, rising to full extension at release" /></div>
+      </div>
+      <div class="panel chart-panel" data-reveal data-delay="1">
+        <div class="panel-bar"><span class="bar-title">Knee angle over frames</span></div>
+        <div class="chart-shell"><img src="assets/img/knee.png" alt="Knee angle plotted across frames through the shooting motion" /></div>
+      </div>
+    </div>
+
+    <div class="panel feedback-panel" data-reveal>
+      <div class="panel-bar">
+        <span class="bar-title">Generated coaching note</span>
+      </div>
+      <div class="feedback-body">
+        <div class="feedback-text" id="feedbackText"></div>
+        <button class="link-btn" id="toggleFeedback" type="button">Read the full note</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW IT WORKS (sticky) ============ -->
+<section class="section how" id="how">
+  <div class="wrap">
+    <div class="section-head" data-reveal>
+      <p class="eyebrow">How it works</p>
+      <h2 class="h2">Three steps, one clip.</h2>
+    </div>
+
+    <div class="how-layout">
+      <div class="how-sticky">
+        <div class="how-visual" id="howVisual">
+          <div class="how-stage is-on" data-stage="1">
+            <div class="stage-icon">
+              <svg viewBox="0 0 64 64"><rect x="14" y="10" width="36" height="44" rx="6" fill="none" stroke="currentColor" stroke-width="3"/><circle cx="32" cy="32" r="9" fill="none" stroke="currentColor" stroke-width="3"/><circle cx="32" cy="32" r="2.5" fill="currentColor"/></svg>
+            </div>
+            <p>Phone on a tripod or a friend filming from the side. That is the whole setup.</p>
+          </div>
+          <div class="how-stage" data-stage="2">
+            <div class="stage-icon">
+              <svg viewBox="0 0 64 64"><circle cx="32" cy="15" r="5" fill="currentColor"/><path d="M32 20v17M32 37l-10 16M32 37l10 16M20 27h24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
+            </div>
+            <p>Pose estimation finds the body, the ball and the exact release frame.</p>
+          </div>
+          <div class="how-stage" data-stage="3">
+            <div class="stage-icon">
+              <svg viewBox="0 0 64 64"><path d="M10 46 Q32 8 54 34" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><circle cx="10" cy="46" r="4" fill="currentColor"/><circle cx="54" cy="34" r="4" fill="none" stroke="currentColor" stroke-width="3"/></svg>
+            </div>
+            <p>Angles, charts and a short note on the one thing to change next rep.</p>
+          </div>
+        </div>
+      </div>
+
+      <ol class="how-steps" id="howSteps">
+        <li class="how-step is-active" data-step="1">
+          <span class="step-idx">01</span>
+          <h3>Record one shot</h3>
+          <p>A normal video from the side. No markers, no sensors, no special court, no extra hardware to buy.</p>
+        </li>
+        <li class="how-step" data-step="2">
+          <span class="step-idx">02</span>
+          <h3>The pipeline runs</h3>
+          <p>It tracks the ball, fits the trajectory, isolates the release frame and measures every joint angle through the motion.</p>
+        </li>
+        <li class="how-step" data-step="3">
+          <span class="step-idx">03</span>
+          <h3>You get the fix</h3>
+          <p>Numbers you can compare rep to rep, plus one specific cue instead of a general opinion.</p>
+        </li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MEASURES ============ -->
+<section class="section measures">
+  <div class="wrap">
+    <div class="section-head" data-reveal>
+      <p class="eyebrow">What comes back</p>
+      <h2 class="h2">Four things, every clip.</h2>
+    </div>
+    <div class="measure-grid">
+      <article class="measure" data-reveal data-tilt>
+        <span class="measure-num">57°</span>
+        <h3>Release &amp; entry angle</h3>
+        <p>The launch angle off your hand and the angle the ball drops through the rim, fitted from the real trajectory.</p>
+      </article>
+      <article class="measure" data-reveal data-delay="1" data-tilt>
+        <span class="measure-num">175°</span>
+        <h3>Joint mechanics</h3>
+        <p>Elbow and knee angles frame by frame, so extension and sequencing show up as a curve instead of a feeling.</p>
+      </article>
+      <article class="measure" data-reveal data-delay="2" data-tilt>
+        <span class="measure-num">2.21m</span>
+        <h3>Release height</h3>
+        <p>How high the ball actually leaves your hand, the variable most players never measure once.</p>
+      </article>
+      <article class="measure" data-reveal data-delay="3" data-tilt>
+        <span class="measure-num">1 cue</span>
+        <h3>A written note</h3>
+        <p>The measurements turned into plain language, ending in the single adjustment worth making.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COMPARISON ============ -->
+<section class="section compare">
+  <div class="wrap">
+    <div class="section-head" data-reveal>
+      <p class="eyebrow">The difference</p>
+      <h2 class="h2">Opinion versus measurement.</h2>
+    </div>
+
+    <div class="ctable" data-reveal>
+      <div class="crow chead">
+        <span></span>
+        <span>Watching replay</span>
+        <span>General tips</span>
+        <span class="chi">Shootalyze</span>
+      </div>
+      <div class="crow">
+        <span>Exact release and entry angle</span>
+        <span class="m no">✕</span><span class="m no">✕</span><span class="m yes">✓</span>
+      </div>
+      <div class="crow">
+        <span>Joint angles through the motion</span>
+        <span class="m no">✕</span><span class="m no">✕</span><span class="m yes">✓</span>
+      </div>
+      <div class="crow">
+        <span>Based on your body, not a template</span>
+        <span class="m part">some</span><span class="m no">✕</span><span class="m yes">✓</span>
+      </div>
+      <div class="crow">
+        <span>Comparable rep to rep</span>
+        <span class="m no">✕</span><span class="m no">✕</span><span class="m yes">✓</span>
+      </div>
+      <div class="crow">
+        <span>Tells you the one thing to change</span>
+        <span class="m no">✕</span><span class="m part">some</span><span class="m yes">✓</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIALS (placeholder) ============ -->
+<section class="section voices">
+  <div class="wrap">
+    <div class="section-head" data-reveal>
+      <p class="eyebrow">From the court</p>
+      <h2 class="h2">What testers say.</h2>
+      <p class="lead placeholder-note">Placeholder slots, ready for real quotes once you collect them.</p>
+    </div>
+    <div class="voice-grid">
+      <figure class="voice" data-reveal>
+        <blockquote>Quote about seeing their real release angle for the first time and what changed after.</blockquote>
+        <figcaption><span class="avatar"></span><span class="who"><b>Name</b><em>role</em></span></figcaption>
+      </figure>
+      <figure class="voice" data-reveal data-delay="1">
+        <blockquote>Quote from a coach about using the numbers alongside their own eye during sessions.</blockquote>
+        <figcaption><span class="avatar"></span><span class="who"><b>Name</b><em>role</em></span></figcaption>
+      </figure>
+      <figure class="voice" data-reveal data-delay="2">
+        <blockquote>Quote about a specific mechanical flaw the pipeline caught that nobody had spotted.</blockquote>
+        <figcaption><span class="avatar"></span><span class="who"><b>Name</b><em>role</em></span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="section faq" id="faq">
+  <div class="wrap faq-wrap">
+    <div class="section-head" data-reveal>
+      <p class="eyebrow">FAQ</p>
+      <h2 class="h2">Straight answers.</h2>
+    </div>
+    <div class="acc" id="acc" data-reveal>
+      <div class="acc-item">
+        <button class="acc-q" type="button">What exactly do I get back?<span class="acc-ico"></span></button>
+        <div class="acc-a"><p>Release angle, entry angle, release height, elbow and knee angles across the motion, the isolated release frame, the plotted charts, and a written note.</p></div>
+      </div>
+      <div class="acc-item">
+        <button class="acc-q" type="button">Do I need special equipment?<span class="acc-ico"></span></button>
+        <div class="acc-a"><p>No. A phone camera filming from the side is enough. No markers, no sensors, no calibration rig.</p></div>
+      </div>
+      <div class="acc-item">
+        <button class="acc-q" type="button">Can I download it today?<span class="acc-ico"></span></button>
+        <div class="acc-a"><p>Not yet. The pipeline is working and a mobile version is in testing. Early access goes to the waitlist first.</p></div>
+      </div>
+      <div class="acc-item">
+        <button class="acc-q" type="button">How is this different from filming myself?<span class="acc-ico"></span></button>
+        <div class="acc-a"><p>Filming gives you a picture. This gives you numbers you can compare between reps, which is the only way to know whether a change actually worked.</p></div>
+      </div>
+      <div class="acc-item">
+        <button class="acc-q" type="button">Does it work for any shot?<span class="acc-ico"></span></button>
+        <div class="acc-a"><p>It is built around the jump shot and free throw, filmed side on, with the full motion and the rim both in frame.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section class="section cta-section">
+  <div class="wrap">
+    <div class="cta" data-reveal>
+      <div class="cta-arc" aria-hidden="true">
+        <svg viewBox="0 0 600 200" preserveAspectRatio="none">
+          <path d="M20 180 Q300 -40 580 120" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="4 10" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <h2 class="h2">Find out what your shot<br>actually measures.</h2>
+      <p>Early access goes out to the waitlist before anywhere else.</p>
+      <a class="btn btn-primary btn-lg waitlist-link" href="#" target="_blank" rel="noreferrer">
+        Get early access
+        <svg class="btn-arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M11 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <a class="brand small" href="#top">
+      <img class="brand-glyph" src="assets/img/logo-mark.png" alt="" width="256" height="256" />
+      Shootalyze
+    </a>
+    <span class="foot-note">Pre-launch prototype</span>
+  </div>
+</footer>
+
+<script src="app.js"></script>
 </body>
 </html>

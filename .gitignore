@@ -1,0 +1,26 @@
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editors
+.vscode/
+.idea/
+*.swp
+
+# Local working notes, not part of the site
+CLAUDE.md
+
+# Source master for the logo, kept locally. The site uses the resized
+# logo-mark.png and favicon.png generated from it.
+assets/img/LOGO.png
+
+# Unused leftover from an earlier build
+assets/img/basketball.jpg
+
+# This is a dependency-free static site. If tooling ever gets added,
+# its install output should not be committed.
+node_modules/
+package-lock.json
+.cache/
+dist/
