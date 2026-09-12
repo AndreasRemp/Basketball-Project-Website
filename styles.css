@@ -85,9 +85,10 @@ h1{font-size:clamp(44px,6.4vw,82px);line-height:1.06;}
 
 /* ---------- Scroll progress ---------- */
 .scroll-progress{
-  position:fixed;top:0;left:0;height:2px;width:0%;
+  position:fixed;top:0;left:0;height:2px;width:100%;
+  transform:scaleX(0);transform-origin:left;
   background:linear-gradient(90deg,var(--accent),var(--accent2));
-  z-index:60;transition:width .12s linear;
+  z-index:60;transition:transform .12s linear;
 }
 
 /* ---------- Header ---------- */
@@ -113,18 +114,18 @@ h1{font-size:clamp(44px,6.4vw,82px);line-height:1.06;}
 .nav-links{display:flex;align-items:center;gap:28px;font-size:14.5px;color:var(--muted);font-weight:500;}
 .nav-links a:not(.nav-cta){position:relative;transition:color .2s;}
 .nav-links a:not(.nav-cta)::after{
-  content:'';position:absolute;left:0;bottom:-5px;height:1.5px;width:0;
-  background:var(--accent);transition:width .3s var(--ease);
+  content:'';position:absolute;left:0;right:0;bottom:-5px;height:1.5px;
+  background:var(--accent);
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .22s var(--ease);
 }
 .nav-links a:not(.nav-cta):hover{color:var(--text);}
-.nav-links a:not(.nav-cta):hover::after{width:100%;}
 
 .nav-cta{
   padding:10px 18px;border-radius:999px;
   background:var(--accent);color:#07101d;font-weight:800;font-size:14px;
-  transition:transform .2s var(--ease),box-shadow .2s var(--ease);
+  transition:transform .16s var(--ease),box-shadow .2s var(--ease);
 }
-.nav-cta:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(255,138,42,0.35);}
 
 /* ---------- Mobile menu ---------- */
 .nav-toggle{
@@ -184,15 +185,12 @@ h1{font-size:clamp(44px,6.4vw,82px);line-height:1.06;}
   display:inline-flex;align-items:center;gap:9px;
   padding:15px 26px;border-radius:999px;
   font-weight:700;font-size:15.5px;
-  transition:transform .22s var(--ease),box-shadow .22s var(--ease),background .22s,border-color .22s;
+  transition:transform .16s var(--ease),box-shadow .22s var(--ease),background .22s,border-color .22s;
 }
 .btn-primary{background:var(--accent);color:#07101d;box-shadow:0 12px 30px rgba(255,138,42,0.26);}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 18px 44px rgba(255,138,42,0.4);}
 .btn-ghost{border:1px solid var(--stroke2);color:var(--text);background:rgba(255,255,255,0.03);}
-.btn-ghost:hover{background:rgba(255,255,255,0.07);border-color:var(--stroke2);transform:translateY(-2px);}
 .btn-lg{padding:18px 34px;font-size:17px;}
 .btn-arrow{width:18px;height:18px;transition:transform .22s var(--ease);}
-.btn:hover .btn-arrow{transform:translateX(4px);}
 
 .link-btn{
   background:none;border:none;padding:0;margin-top:16px;
@@ -266,13 +264,17 @@ h1 .line:last-child{
   border:1px solid var(--stroke);
   background:linear-gradient(180deg,rgba(255,255,255,0.06),transparent 130%),rgba(15,23,40,0.82);
   box-shadow:var(--shadow-lg);
-  transition:transform .5s var(--ease);
+  /* No transform transition here. The pointer parallax in app.js eases this
+     per frame; a transition on top would fight it and trail the cursor. */
 }
 
 .scope-img{
-  border-radius:14px;overflow:hidden;background:#fff;
-  /* matches release.png's native 774x467, so contain leaves almost no border */
-  aspect-ratio:774/467;
+  border-radius:14px;overflow:hidden;
+  /* release-frame.jpg brings its own dark chrome, so the letterbox behind it
+     is dark too. A white ground here used to flash at the edges. */
+  background:#0b1220;
+  /* matches release-frame.jpg's native 1200x724, so contain barely letterboxes */
+  aspect-ratio:1200/724;
   display:flex;align-items:center;justify-content:center;
   padding:8px;
 }
@@ -295,7 +297,7 @@ h1 .line:last-child{
   background:linear-gradient(90deg,transparent,rgba(255,138,42,.85),transparent);
   opacity:0;
 }
-.is-loaded .scan{animation:scan 3.6s var(--ease) 1s infinite;}
+.is-loaded .scan{animation:scan 3.6s linear 1s infinite;}
 @keyframes scan{
   0%{top:12px;opacity:0;}
   12%{opacity:1;}
@@ -408,7 +410,6 @@ h1 .line:last-child{
   filter:invert(1) hue-rotate(180deg) saturate(1.15) brightness(.92) contrast(1.05);
   transition:transform .45s var(--ease);
 }
-.chart-panel:hover .chart-shell img{transform:scale(1.02);}
 @media(max-width:900px){
   .output-stage{grid-template-columns:1fr;}
   .output-charts{grid-template-columns:1fr;}
@@ -423,9 +424,33 @@ h1 .line:last-child{
   mask-image:linear-gradient(180deg,#000 60%,transparent);
   transition:max-height .5s var(--ease);
 }
+/* Open height is set inline from scrollHeight in app.js, so a longer note
+   can never be clipped by a hardcoded ceiling. */
 .feedback-text.open{
-  max-height:1400px;
   -webkit-mask-image:none;mask-image:none;
+}
+
+/* ---------- The app ---------- */
+.app-grid{
+  display:grid;grid-template-columns:1.05fr 0.95fr;
+  gap:clamp(30px,5vw,72px);align-items:center;
+}
+.app-copy .h2{margin-top:0;}
+.app-note{
+  margin:26px 0 0;
+  font-family:var(--mono);font-size:11px;letter-spacing:0.14em;
+  text-transform:uppercase;color:var(--faint);
+}
+.app-shot{display:flex;justify-content:center;}
+.app-shot img{
+  width:100%;max-width:330px;height:auto;
+  border-radius:26px;
+  box-shadow:var(--shadow-lg);
+}
+@media(max-width:820px){
+  .app-grid{grid-template-columns:1fr;}
+  .app-shot{order:-1;}
+  .app-shot img{max-width:290px;}
 }
 
 /* ---------- How it works ---------- */
@@ -488,10 +513,9 @@ h1 .line:last-child{
   padding:30px 26px 28px;border-radius:var(--radius);
   border:1px solid var(--stroke);
   background:linear-gradient(180deg,rgba(255,255,255,0.045),transparent 120%),rgba(15,23,40,0.62);
-  transition:transform .35s var(--ease),border-color .35s var(--ease),box-shadow .35s var(--ease);
+  transition:border-color .35s var(--ease),box-shadow .35s var(--ease);
   will-change:transform;
 }
-.measure:hover{border-color:rgba(255,138,42,0.32);box-shadow:0 18px 46px rgba(0,0,0,0.34);}
 .measure-num{
   display:block;font-family:var(--mono);font-size:27px;font-weight:600;
   color:var(--accent);margin-bottom:16px;
@@ -542,7 +566,6 @@ h1 .line:last-child{
   display:flex;flex-direction:column;justify-content:space-between;gap:24px;
   transition:border-color .3s,transform .3s var(--ease);
 }
-.voice:hover{border-color:var(--stroke2);transform:translateY(-3px);}
 .voice blockquote{
   margin:0;font-size:16px;color:var(--muted);line-height:1.65;position:relative;padding-top:26px;
 }
@@ -571,9 +594,8 @@ h1 .line:last-child{
   padding:26px 4px;background:none;border:none;cursor:pointer;
   font-family:var(--sans);font-size:clamp(16.5px,1.8vw,19.5px);font-weight:700;
   color:var(--text);text-align:left;letter-spacing:-0.02em;
-  transition:color .25s;
+  transition:color .25s,background .16s var(--ease);
 }
-.acc-q:hover{color:var(--accent2);}
 .acc-ico{position:relative;width:16px;height:16px;flex:none;}
 .acc-ico::before,.acc-ico::after{
   content:'';position:absolute;background:var(--accent);border-radius:2px;
@@ -583,8 +605,21 @@ h1 .line:last-child{
 .acc-ico::after{left:7px;top:0;width:2px;height:16px;}
 .acc-item.open .acc-ico::after{transform:rotate(90deg);opacity:0;}
 
-.acc-a{max-height:0;overflow:hidden;transition:max-height .4s var(--ease);}
-.acc-a p{margin:0 0 26px;color:var(--muted);font-size:16px;max-width:70ch;}
+/* grid-template-rows animates the row track rather than a measured pixel
+   height, which removes the scrollHeight read the max-height version needed
+   and so cannot get the height wrong while content is still loading. */
+/* A 0fr track still respects the grid item's automatic minimum size, and
+   overflow:hidden only zeroes the *content* box. So the item that sits in the
+   row must carry no padding of its own, or the row can never reach 0. That is
+   what .acc-a-inner is for: it clips, and the padding lives on the paragraph
+   inside it. */
+.acc-a{display:grid;grid-template-rows:0fr;transition:grid-template-rows .35s var(--ease);}
+.acc-item.open .acc-a{grid-template-rows:1fr;}
+.acc-a-inner{overflow:hidden;min-height:0;}
+.acc-a p{
+  margin:0;padding-bottom:26px;
+  color:var(--muted);font-size:16px;max-width:70ch;
+}
 
 /* ---------- CTA ---------- */
 .cta{
@@ -610,32 +645,68 @@ h1 .line:last-child{
 .foot-note{font-family:var(--mono);font-size:12px;letter-spacing:0.1em;color:var(--faint);}
 
 /* =========================================================
+   Hover, pointer devices only
+   Touch devices fire :hover on tap, which leaves cards and buttons stuck in a
+   hovered state after the finger lifts. Gating on (hover:hover) avoids that.
+   ========================================================= */
+@media (hover: hover) and (pointer: fine){
+  .nav-links a:not(.nav-cta):hover::after{transform:scaleX(1);}
+  .nav-cta:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(255,138,42,0.35);}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 18px 44px rgba(255,138,42,0.4);}
+  .btn-ghost:hover{background:rgba(255,255,255,0.07);transform:translateY(-2px);}
+  .btn:hover .btn-arrow{transform:translateX(4px);}
+  .chart-panel:hover .chart-shell img{transform:scale(1.02);}
+  .measure:hover{border-color:rgba(255,138,42,0.32);box-shadow:0 18px 46px rgba(0,0,0,0.34);}
+  .voice:hover{border-color:var(--stroke2);transform:translateY(-3px);}
+  .acc-q:hover{color:var(--accent2);}
+}
+
+/* =========================================================
+   Press feedback
+   Declared after the hover block on purpose: a desktop click matches :hover
+   and :active at once, and the press needs to win so the element responds.
+   ========================================================= */
+.btn:active{transform:scale(0.97);}
+.nav-cta:active{transform:scale(0.97);}
+.link-btn:active{transform:scale(0.97);}
+.nav-toggle:active{transform:scale(0.94);}
+.acc-q:active{background:rgba(255,255,255,0.035);}
+
+/* =========================================================
    Motion
    ========================================================= */
 [data-rise]{opacity:0;transform:translateY(22px);}
 .is-loaded [data-rise]{
   opacity:1;transform:none;
-  transition:opacity .8s var(--ease),transform .8s var(--ease);
+  transition:opacity .55s var(--ease),transform .55s var(--ease);
 }
-.is-loaded [data-rise="1"]{transition-delay:.05s;}
-.is-loaded [data-rise="2"]{transition-delay:.14s;}
-.is-loaded [data-rise="3"]{transition-delay:.23s;}
-.is-loaded [data-rise="4"]{transition-delay:.32s;}
-.is-loaded [data-rise="5"]{transition-delay:.41s;}
-.is-loaded [data-rise="6"]{transition-delay:.5s;}
+/* 60ms apart: enough to read as a cascade, short enough not to feel slow */
+.is-loaded [data-rise="1"]{transition-delay:.04s;}
+.is-loaded [data-rise="2"]{transition-delay:.10s;}
+.is-loaded [data-rise="3"]{transition-delay:.16s;}
+.is-loaded [data-rise="4"]{transition-delay:.22s;}
+.is-loaded [data-rise="5"]{transition-delay:.28s;}
+.is-loaded [data-rise="6"]{transition-delay:.34s;}
 
 [data-reveal]{
   opacity:0;transform:translateY(26px);
-  transition:opacity .75s var(--ease),transform .75s var(--ease);
+  transition:opacity .45s var(--ease),transform .45s var(--ease);
 }
 [data-reveal].in{opacity:1;transform:none;}
-[data-reveal][data-delay="1"]{transition-delay:.1s;}
-[data-reveal][data-delay="2"]{transition-delay:.2s;}
-[data-reveal][data-delay="3"]{transition-delay:.3s;}
+[data-reveal][data-delay="1"]{transition-delay:.06s;}
+[data-reveal][data-delay="2"]{transition-delay:.12s;}
+[data-reveal][data-delay="3"]{transition-delay:.18s;}
 
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto;}
-  *,*::before,*::after{animation:none !important;transition:none !important;}
+  /* Reduced motion means gentler, not none. Colour and opacity transitions aid
+     comprehension and cause no motion sickness, so they stay. Everything that
+     moves or scales is dropped by restricting the animatable properties. */
+  *,*::before,*::after{
+    animation:none !important;
+    transition-property:opacity,color,background-color,border-color,box-shadow !important;
+    transition-duration:.2s !important;
+  }
   [data-rise],[data-reveal],.metric-row,.corner{opacity:1 !important;transform:none !important;}
   .scan{display:none;}
   .feedback-text{max-height:none;-webkit-mask-image:none;mask-image:none;}

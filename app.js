@@ -78,7 +78,8 @@ function initScrollChrome() {
   function onScroll() {
     header.classList.toggle("is-stuck", window.scrollY > 10);
     const max = document.documentElement.scrollHeight - window.innerHeight;
-    bar.style.width = max > 0 ? `${(window.scrollY / max) * 100}%` : "0%";
+    // scaleX, not width: transform stays on the GPU, width relayouts each frame
+    bar.style.transform = `scaleX(${max > 0 ? window.scrollY / max : 0})`;
   }
   onScroll();
   window.addEventListener("scroll", onScroll, { passive: true });
@@ -124,6 +125,10 @@ function initReveal() {
   const items = $$("[data-reveal]");
   if (!("IntersectionObserver" in window)) {
     items.forEach(i => i.classList.add("in"));
+    // The metric rows start at opacity 0 and are only revealed by
+    // animateMetrics, which normally fires from the observer below. Without
+    // this call they would stay invisible for the whole session.
+    animateMetrics();
     return;
   }
   const io = new IntersectionObserver((entries) => {
@@ -159,10 +164,17 @@ function renderDemo() {
   $("#feedbackText").textContent = DEMO.feedback;
 
   const toggle = $("#toggleFeedback");
+  const feedback = $("#feedbackText");
+  toggle.setAttribute("aria-expanded", "false");
+  toggle.setAttribute("aria-controls", "feedbackText");
+
   toggle.addEventListener("click", () => {
-    const text = $("#feedbackText");
-    const open = text.classList.toggle("open");
+    const open = feedback.classList.toggle("open");
+    // Measured rather than assumed: the old CSS capped the open state at a
+    // hardcoded 1400px, which would clip a longer coaching note.
+    feedback.style.maxHeight = open ? `${feedback.scrollHeight}px` : "";
     toggle.textContent = open ? "Collapse note" : "Read the full note";
+    toggle.setAttribute("aria-expanded", String(open));
   });
 }
 
@@ -179,7 +191,7 @@ function animateMetrics() {
         decimals: parseInt(v.dataset.decimals, 10),
         duration: 900
       });
-    }, prefersReduced ? 0 : i * 110);
+    }, prefersReduced ? 0 : i * 60);
   });
 }
 
@@ -203,18 +215,26 @@ function initHowSteps() {
 
 /* ---------- FAQ accordion ---------- */
 function initAccordion() {
-  $$(".acc-item").forEach(item => {
+  const items = $$(".acc-item");
+
+  items.forEach((item, i) => {
     const q = item.querySelector(".acc-q");
-    const a = item.querySelector(".acc-a");
+    const panel = item.querySelector(".acc-a");
+    if (!panel.id) panel.id = `acc-panel-${i + 1}`;
+    q.setAttribute("aria-expanded", "false");
+    q.setAttribute("aria-controls", panel.id);
+
     q.addEventListener("click", () => {
-      const isOpen = item.classList.contains("open");
-      $$(".acc-item").forEach(other => {
+      const willOpen = !item.classList.contains("open");
+      // One panel open at a time. The height itself is animated by
+      // grid-template-rows in CSS, so nothing here measures the content.
+      items.forEach((other) => {
         other.classList.remove("open");
-        other.querySelector(".acc-a").style.maxHeight = null;
+        other.querySelector(".acc-q").setAttribute("aria-expanded", "false");
       });
-      if (!isOpen) {
+      if (willOpen) {
         item.classList.add("open");
-        a.style.maxHeight = a.scrollHeight + "px";
+        q.setAttribute("aria-expanded", "true");
       }
     });
   });
@@ -223,14 +243,50 @@ function initAccordion() {
 /* ---------- Subtle pointer tilt on cards ---------- */
 function initTilt() {
   if (prefersReduced || window.matchMedia("(pointer: coarse)").matches) return;
-  $$("[data-tilt]").forEach(card => {
+
+  $$("[data-tilt]").forEach((card) => {
+    let tx = 0, ty = 0, cx = 0, cy = 0, targetLift = 0, lift = 0, raf = null;
+
+    function frame() {
+      // Chase the pointer instead of snapping to it. Binding a transform
+      // straight to cursor position reads as artificial because it carries no
+      // momentum; easing toward the target each frame gives it weight.
+      cx += (tx - cx) * 0.12;
+      cy += (ty - cy) * 0.12;
+      lift += (targetLift - lift) * 0.12;
+
+      card.style.transform =
+        `perspective(900px) rotateX(${(-cy * 4).toFixed(3)}deg) ` +
+        `rotateY(${(cx * 4).toFixed(3)}deg) translateY(${lift.toFixed(2)}px)`;
+
+      const settled =
+        Math.abs(tx - cx) < 0.0005 &&
+        Math.abs(ty - cy) < 0.0005 &&
+        Math.abs(targetLift - lift) < 0.02;
+
+      if (!settled) {
+        raf = requestAnimationFrame(frame);
+        return;
+      }
+      raf = null;
+      // Hand the element back to the stylesheet once it has come to rest
+      if (targetLift === 0) card.style.transform = "";
+    }
+
+    const run = () => { if (raf === null) raf = requestAnimationFrame(frame); };
+
     card.addEventListener("pointermove", (e) => {
       const r = card.getBoundingClientRect();
-      const x = (e.clientX - r.left) / r.width - 0.5;
-      const y = (e.clientY - r.top) / r.height - 0.5;
-      card.style.transform = `perspective(900px) rotateX(${-y * 4}deg) rotateY(${x * 4}deg) translateY(-3px)`;
+      tx = (e.clientX - r.left) / r.width - 0.5;
+      ty = (e.clientY - r.top) / r.height - 0.5;
+      targetLift = -3;
+      run();
     });
-    card.addEventListener("pointerleave", () => { card.style.transform = ""; });
+
+    card.addEventListener("pointerleave", () => {
+      tx = 0; ty = 0; targetLift = 0;
+      run();
+    });
   });
 }
 
@@ -238,10 +294,24 @@ function initTilt() {
 function initScopeParallax() {
   const scope = $("#heroScope");
   if (!scope || prefersReduced || window.matchMedia("(pointer: coarse)").matches) return;
+
+  let tx = 0, ty = 0, cx = 0, cy = 0, raf = null;
+
+  function frame() {
+    cx += (tx - cx) * 0.08;
+    cy += (ty - cy) * 0.08;
+    scope.style.transform = `translate3d(${cx.toFixed(2)}px, ${cy.toFixed(2)}px, 0)`;
+    const settled = Math.abs(tx - cx) < 0.05 && Math.abs(ty - cy) < 0.05;
+    raf = settled ? null : requestAnimationFrame(frame);
+  }
+
   window.addEventListener("pointermove", (e) => {
-    const x = (e.clientX / window.innerWidth - 0.5) * 8;
-    const y = (e.clientY / window.innerHeight - 0.5) * 8;
-    scope.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+    // The .scope CSS transition used to smooth this, which meant every mouse
+    // move retargeted a 500ms ease and the frame trailed the cursor. The
+    // transition is gone; this lerp does the smoothing per frame instead.
+    tx = (e.clientX / window.innerWidth - 0.5) * 8;
+    ty = (e.clientY / window.innerHeight - 0.5) * 8;
+    if (raf === null) raf = requestAnimationFrame(frame);
   }, { passive: true });
 }
 

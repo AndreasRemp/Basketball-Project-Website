@@ -89,7 +89,8 @@
     <div class="hero-visual" data-rise="4">
       <div class="scope" id="heroScope">
         <div class="scope-img">
-          <img src="assets/img/release.png" alt="A real shot with the fitted ball trajectory overlaid on the release frame" />
+          <img src="assets/img/release-frame.jpg" width="1200" height="724"
+               alt="A real shot with the fitted ball trajectory overlaid, showing the ball detections, the release point and the rim" />
         </div>
 
         <span class="corner tl"></span><span class="corner tr"></span>
@@ -161,7 +162,7 @@
           <span class="bar-title">shot_analysis.mp4</span>
         </div>
         <div class="video-shell">
-          <video id="demoVideo" controls playsinline preload="metadata" poster="assets/img/release.png"></video>
+          <video id="demoVideo" controls playsinline preload="metadata" poster="assets/img/release-frame.jpg"></video>
         </div>
       </div>
 
@@ -189,6 +190,33 @@
       <div class="feedback-body">
         <div class="feedback-text" id="feedbackText"></div>
         <button class="link-btn" id="toggleFeedback" type="button">Read the full note</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ THE APP ============ -->
+<section class="section app" id="app">
+  <div class="wrap">
+    <div class="app-grid">
+      <div class="app-copy" data-reveal>
+        <p class="eyebrow">On the phone</p>
+        <h2 class="h2">The same pipeline,<br>in your pocket.</h2>
+        <p class="lead">
+          A mobile build is in testing. It works through a whole session rather than a
+          single shot, scores it, and points you at the rep worth studying.
+        </p>
+        <ul class="tick-list">
+          <li>One score for the session, not just for one shot</li>
+          <li>Your best and worst rep side by side, with the angles that separate them</li>
+          <li>The same written coach report, generated for the session</li>
+        </ul>
+        <p class="app-note">Screenshot from the build in testing</p>
+      </div>
+
+      <div class="app-shot" data-reveal data-delay="1">
+        <img src="assets/img/app-screen.jpg" width="622" height="1174"
+             alt="The Shootalyze app showing a session scored 73 overall, a best and worst shot compared by release, elbow, arc and entry angle, and a written AI coach report" />
       </div>
     </div>
   </div>
@@ -353,23 +381,23 @@
     <div class="acc" id="acc" data-reveal>
       <div class="acc-item">
         <button class="acc-q" type="button">What exactly do I get back?<span class="acc-ico"></span></button>
-        <div class="acc-a"><p>Release angle, entry angle, release height, elbow and knee angles across the motion, the isolated release frame, the plotted charts, and a written note.</p></div>
+        <div class="acc-a"><div class="acc-a-inner"><p>Release angle, entry angle, release height, elbow and knee angles across the motion, the isolated release frame, the plotted charts, and a written note.</p></div></div>
       </div>
       <div class="acc-item">
         <button class="acc-q" type="button">Do I need special equipment?<span class="acc-ico"></span></button>
-        <div class="acc-a"><p>No. A phone camera filming from the side is enough. No markers, no sensors, no calibration rig.</p></div>
+        <div class="acc-a"><div class="acc-a-inner"><p>No. A phone camera filming from the side is enough. No markers, no sensors, no calibration rig.</p></div></div>
       </div>
       <div class="acc-item">
         <button class="acc-q" type="button">Can I download it today?<span class="acc-ico"></span></button>
-        <div class="acc-a"><p>Not yet. The pipeline is working and a mobile version is in testing. Early access goes to the waitlist first.</p></div>
+        <div class="acc-a"><div class="acc-a-inner"><p>Not yet. The pipeline is working and a mobile version is in testing. Early access goes to the waitlist first.</p></div></div>
       </div>
       <div class="acc-item">
         <button class="acc-q" type="button">How is this different from filming myself?<span class="acc-ico"></span></button>
-        <div class="acc-a"><p>Filming gives you a picture. This gives you numbers you can compare between reps, which is the only way to know whether a change actually worked.</p></div>
+        <div class="acc-a"><div class="acc-a-inner"><p>Filming gives you a picture. This gives you numbers you can compare between reps, which is the only way to know whether a change actually worked.</p></div></div>
       </div>
       <div class="acc-item">
         <button class="acc-q" type="button">Does it work for any shot?<span class="acc-ico"></span></button>
-        <div class="acc-a"><p>It is built around the jump shot and free throw, filmed side on, with the full motion and the rim both in frame.</p></div>
+        <div class="acc-a"><div class="acc-a-inner"><p>It is built around the jump shot and free throw, filmed side on, with the full motion and the rim both in frame.</p></div></div>
       </div>
     </div>
   </div>
