@@ -5,14 +5,19 @@
 
 const WAITLIST_URL = "https://forms.gle/WAUrEAFMLEEAnkxa8";
 
+/* Measured output for one real shot. The values are never edited.
+   The verdict shown beside each one is NOT stored here: it is derived from
+   TARGETS below. Authored labels are what let this page contradict itself,
+   with 57° tagged "excellent" while the coach note in the same object called
+   the arc higher than ideal. */
 const DEMO = {
   video: "assets/video/demo.mp4",
   metrics: [
-    { name: "Release angle",  value: 57,   suffix: "°", score: "excellent" },
-    { name: "Elbow angle",    value: 175,  suffix: "°", score: "excellent" },
-    { name: "Knee angle",     value: 170,  suffix: "°", score: "excellent" },
-    { name: "Entry angle",    value: 61,   suffix: "°", score: "good" },
-    { name: "Release height", value: 2.21, suffix: " m", score: "good", decimals: 2 }
+    { id: "release", name: "Release angle",  value: 57,   suffix: "°" },
+    { id: "elbow",   name: "Elbow angle",    value: 175,  suffix: "°" },
+    { id: "knee",    name: "Knee angle",     value: 170,  suffix: "°" },
+    { id: "entry",   name: "Entry angle",    value: 61,   suffix: "°" },
+    { id: "height",  name: "Release height", value: 2.21, suffix: " m", decimals: 2 }
   ],
   feedback: `1. Shot mechanics
 
@@ -32,6 +37,31 @@ Mechanically sound shot with good sequencing, but the arc is higher than ideal f
 
 Key cue: keep the timing and flatten the arc slightly.`
 };
+
+/* Target ranges. One source of truth for every verdict on the page.
+   Release angle: the free-throw optimum sits near 52° at a 7ft release and
+   moves with player height, roughly 48.7° at 7'0" up to 52.2° at 5'4". Jump
+   shots sit in the same band and flatten with distance, about 52-55° close in
+   and 48-50° further out. 48-54° spans free-throw through mid-range.
+   Entry angle: 45° leaves the largest effective opening at the rim, and the
+   penalty for error grows sharply above it, so 43-47° with 2° either side.
+   Elbow and knee: near-full extension through release, so 160° and up.
+   Release height: no single target, higher is simply better, so no verdict. */
+const TARGETS = {
+  release: { min: 48,  max: 54, label: "target 48-54°" },
+  entry:   { min: 43,  max: 47, label: "target 43-47°" },
+  elbow:   { min: 160,          label: "target 160°+" },
+  knee:    { min: 160,          label: "target 160°+" },
+  height:  {                    label: "higher is better" }
+};
+
+function grade(id, value) {
+  const t = TARGETS[id];
+  if (!t || (t.min === undefined && t.max === undefined)) return null;
+  if (t.min !== undefined && value < t.min) return { cls: "low", text: "low" };
+  if (t.max !== undefined && value > t.max) return { cls: "high", text: "high" };
+  return { cls: "on-target", text: "on target" };
+}
 
 const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const $  = (s, r = document) => r.querySelector(s);
@@ -179,13 +209,18 @@ function renderDemo() {
   const list = $("#metricList");
   list.innerHTML = "";
   DEMO.metrics.forEach(m => {
+    const t = TARGETS[m.id];
+    const g = grade(m.id, m.value);
     const row = document.createElement("div");
     row.className = "metric-row";
     row.innerHTML = `
-      <span class="metric-name">${m.name}</span>
+      <span class="metric-label">
+        <span class="metric-name">${m.name}</span>
+        ${t && t.label ? `<span class="metric-target">${t.label}</span>` : ""}
+      </span>
       <span class="metric-right">
         <span class="metric-value" data-target="${m.value}" data-suffix="${m.suffix}" data-decimals="${m.decimals || 0}">0${m.suffix}</span>
-        <span class="metric-chip ${m.score}">${m.score}</span>
+        ${g ? `<span class="metric-chip ${g.cls}">${g.text}</span>` : ""}
       </span>`;
     list.appendChild(row);
   });

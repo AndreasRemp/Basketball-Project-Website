@@ -399,15 +399,23 @@ h1 .line:last-child{
 }
 .metric-row.in{opacity:1;transform:none;}
 .metric-row:last-child{border-bottom:none;}
+.metric-label{display:flex;flex-direction:column;gap:3px;min-width:0;}
 .metric-name{font-size:14px;color:var(--muted);}
+.metric-target{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:0.08em;
+  text-transform:uppercase;color:var(--faint);
+}
 .metric-right{display:flex;align-items:center;gap:10px;}
 .metric-value{font-family:var(--mono);font-size:19px;font-weight:600;color:var(--text);}
 .metric-chip{
   font-family:var(--mono);font-size:9.5px;letter-spacing:0.12em;text-transform:uppercase;
   padding:3px 8px;border-radius:999px;
 }
-.metric-chip.excellent{color:var(--good);background:rgba(40,199,111,0.12);}
-.metric-chip.good{color:var(--accent2);background:rgba(255,138,42,0.13);}
+/* classes match grade() in app.js, so a verdict can only come from a
+   measurement compared against TARGETS */
+.metric-chip.on-target{color:var(--good);background:rgba(40,199,111,0.12);}
+.metric-chip.high,
+.metric-chip.low{color:var(--accent2);background:rgba(255,138,42,0.15);}
 
 /* ---------- Charts ---------- */
 .output-charts{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px;}
@@ -421,6 +429,16 @@ h1 .line:last-child{
 @media(max-width:900px){
   .output-stage{grid-template-columns:1fr;}
   .output-charts{grid-template-columns:1fr;}
+}
+
+.source-note{
+  margin:18px 2px 0;
+  font-size:12.8px;line-height:1.55;color:var(--faint);
+  max-width:76ch;
+}
+.source-note a{
+  color:var(--accent2);
+  text-decoration:underline;text-underline-offset:2px;
 }
 
 /* ---------- Feedback ---------- */

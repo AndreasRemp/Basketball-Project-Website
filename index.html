@@ -15,8 +15,15 @@
 <meta property="og:title" content="Shootalyze | See the numbers behind your shot" />
 <meta property="og:description" content="Film a normal shooting video. Shootalyze measures release angle, joint mechanics and entry angle, then tells you what to fix." />
 <meta name="twitter:card" content="summary_large_image" />
-<!-- og:url and og:image still need the production domain: both must be
-     absolute URLs, so they cannot be written as relative paths. -->
+<!-- Absolute by necessity: crawlers do not resolve relative og paths.
+     Currently served from GitHub Pages. When the site moves to
+     https://shootalyze.com/ update og:url, og:image and the canonical link. -->
+<meta property="og:url" content="https://andreasremp.github.io/Basketball-Project-Website/" />
+<meta property="og:image" content="https://andreasremp.github.io/Basketball-Project-Website/assets/img/social-card.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="A basketball shot with the fitted trajectory, ball detections, release point and rim marker drawn over it" />
+<link rel="canonical" href="https://andreasremp.github.io/Basketball-Project-Website/" />
 <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -193,6 +200,14 @@
         <div class="chart-shell"><img src="assets/img/knee.png" width="850" height="393" alt="Knee angle plotted across frames through the shooting motion" /></div>
       </div>
     </div>
+
+    <p class="source-note" data-reveal>
+      The target ranges beside each measurement come from published free-throw
+      and jump-shot research, not from us. The optimum shifts with release
+      height and shooting distance, which is why they are ranges.
+      <a href="https://theconversation.com/the-math-behind-the-perfect-free-throw-91727"
+         target="_blank" rel="noreferrer">Where the numbers come from</a>
+    </p>
 
     <div class="panel feedback-panel" data-reveal>
       <div class="panel-bar">
