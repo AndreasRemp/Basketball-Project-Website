@@ -77,8 +77,9 @@
       </h1>
 
       <p class="hero-sub" data-rise="4">
-        Film one shot on your phone. Shootalyze returns the release angle, the joint
-        mechanics and the entry angle, then tells you the single thing to change.
+        Film a session on your phone. Shootalyze measures every shot, speaks the
+        result and the fix back to you while you are still shooting, and ends with
+        the one change worth making.
       </p>
 
       <div class="hero-actions" data-rise="5">
@@ -88,6 +89,15 @@
         </a>
         <a class="btn btn-ghost" href="#output">See real output</a>
       </div>
+
+      <p class="hero-voice" data-rise="5">
+        <span class="hero-voice-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <path d="M4 9v6M8.5 5.5v13M13 8v8M17.5 3v18M21.5 10v4"/>
+          </svg>
+        </span>
+        Spoken feedback after every attempt, so you never stop to read a screen
+      </p>
 
       <div class="hero-stats" data-rise="6">
         <div class="hstat">
@@ -123,6 +133,17 @@
     </div>
 
   </div>
+
+  <div class="hero-cue">
+    <a class="scroll-cue" href="#problem">
+      <span>More below</span>
+      <span class="scroll-cue-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 4v13M5.5 11.5 12 18l6.5-6.5"/>
+        </svg>
+      </span>
+    </a>
+  </div>
 </section>
 
 <!-- ============ MARQUEE ============ -->
@@ -136,7 +157,7 @@
 </div>
 
 <!-- ============ PROBLEM ============ -->
-<section class="section problem">
+<section class="section problem" id="problem">
   <div class="wrap">
     <div class="problem-grid">
       <div data-reveal>
@@ -203,14 +224,6 @@
       </div>
     </div>
 
-    <p class="source-note" data-reveal>
-      The target ranges beside each measurement come from published free-throw
-      and jump-shot research, not from us. The optimum shifts with release
-      height and shooting distance, which is why they are ranges.
-      <a href="https://theconversation.com/the-math-behind-the-perfect-free-throw-91727"
-         target="_blank" rel="noreferrer">Where the numbers come from</a>
-    </p>
-
     <div class="panel feedback-panel" data-reveal>
       <div class="panel-bar">
         <span class="bar-title">Generated coaching note</span>
@@ -220,6 +233,14 @@
         <button class="link-btn" id="toggleFeedback" type="button">Read the full note</button>
       </div>
     </div>
+
+    <p class="source-note" data-reveal>
+      The target ranges beside each measurement come from published free-throw and
+      jump-shot research. The optimum shifts with release height and shooting
+      distance, which is why they are ranges.
+      <a class="source-link" href="https://theconversation.com/the-math-behind-the-perfect-free-throw-91727"
+         target="_blank" rel="noreferrer">Where the numbers come from</a>
+    </p>
   </div>
 </section>
 
@@ -252,11 +273,13 @@
 
     <figure class="app-live" data-reveal>
       <img src="assets/img/live-track.jpg" width="1400" height="657"
-           alt="The app tracking a shot live on an outdoor court: the ball path drawn from release to the rim, the shot called made, and release and entry angle shown at the edge of the screen" loading="lazy" decoding="async" />
+           alt="The app during a session on an outdoor court, with the shot called made and the release and entry angle for the last attempt shown at the edge of the screen" loading="lazy" decoding="async" />
       <figcaption>
-        <strong>Live, while you shoot.</strong> The ball path is drawn as the shot
-        happens, the result is called on screen, and the release and entry angle for
-        the last attempt sit at the edge of the frame.
+        <strong>It speaks, so you can keep shooting.</strong> The result is spoken
+        after every attempt and a coaching cue follows at the interval you pick, so
+        the feedback reaches you without breaking rhythm. Made or miss and the last
+        attempt's release and entry angle stay on the display.
+        <span class="figcaption-aside">Ball path added by the analysis, not drawn live.</span>
       </figcaption>
     </figure>
 
@@ -346,35 +369,52 @@
   </div>
 </section>
 
-<!-- ============ MEASURES ============ -->
-<section class="section measures">
+<!-- ============ WHEN YOU GET IT ============ -->
+<section class="section when">
   <div class="wrap">
     <div class="section-head" data-reveal>
-      <p class="eyebrow">What comes back</p>
-      <h2 class="h2">Four things, every clip.</h2>
+      <p class="eyebrow">When you get it</p>
+      <h2 class="h2">Feedback before you<br>leave the court.</h2>
+      <p class="lead">
+        Most tools hand you something to read later, once the session is over and the
+        feel has gone. Almost all of this reaches you while you can still act on it.
+      </p>
     </div>
-    <div class="measure-grid">
-      <article class="measure" data-reveal data-tilt>
-        <span class="measure-num">57°</span>
-        <h3>Release &amp; entry angle</h3>
-        <p>The launch angle off your hand and the angle the ball drops through the rim, fitted from the real trajectory.</p>
-      </article>
-      <article class="measure" data-reveal data-delay="1" data-tilt>
-        <span class="measure-num">175°</span>
-        <h3>Joint mechanics</h3>
-        <p>Elbow and knee angles frame by frame, so extension and sequencing show up as a curve instead of a feeling.</p>
-      </article>
-      <article class="measure" data-reveal data-delay="2" data-tilt>
-        <span class="measure-num">2.21m</span>
-        <h3>Release height</h3>
-        <p>How high the ball actually leaves your hand, the variable most players never measure once.</p>
-      </article>
-      <article class="measure" data-reveal data-delay="3" data-tilt>
-        <span class="measure-num">1 cue</span>
-        <h3>A written note</h3>
-        <p>The measurements turned into plain language, ending in the single adjustment worth making.</p>
-      </article>
-    </div>
+
+    <ol class="when-grid">
+      <li class="when-card is-primary" data-reveal data-tilt>
+        <span class="when-tag">While you shoot</span>
+        <h3>A voice, not a screen</h3>
+        <p>
+          The result spoken after every attempt, and a coaching cue every shot, every
+          fifth or every tenth, whichever you set. Made or miss and the last attempt's
+          release and entry angle stay on the display if you want to glance down.
+        </p>
+        <p class="when-detail">Spoken result &middot; spoken cue &middot; live count</p>
+      </li>
+
+      <li class="when-card" data-reveal data-delay="1" data-tilt>
+        <span class="when-tag">The moment you finish</span>
+        <h3>Numbers, judged against a range</h3>
+        <p>
+          Release, entry, elbow and knee averaged across the session and checked against
+          the target range, with shooting percentage, a consistency read, and your best
+          rep set against your worst.
+        </p>
+        <p class="when-detail">5 angles &middot; shooting % &middot; best against worst</p>
+      </li>
+
+      <li class="when-card" data-reveal data-delay="2" data-tilt>
+        <span class="when-tag">Before the next one</span>
+        <h3>One change, and the drills for it</h3>
+        <p>
+          The measurements turned into plain language, ending in a single adjustment
+          rather than a list, plus the drills that follow from it and the charts showing
+          elbow and knee through the motion.
+        </p>
+        <p class="when-detail">Written report &middot; drills &middot; joint charts</p>
+      </li>
+    </ol>
   </div>
 </section>
 
@@ -384,9 +424,13 @@
     <div class="section-head" data-reveal>
       <p class="eyebrow">The difference</p>
       <h2 class="h2">Opinion versus measurement.</h2>
+      <p class="lead">
+        Filming yourself is not useless, it is just manual and after the fact. This is
+        the same work done for you, while it still matters.
+      </p>
     </div>
 
-    <div class="ctable" data-reveal>
+    <div class="ctable ctable-compact" data-reveal>
       <div class="crow chead">
         <span class="cfeat"></span>
         <span>Watching replay</span>
@@ -394,44 +438,34 @@
         <span class="chi">Shootalyze</span>
       </div>
       <div class="crow">
-        <span class="cfeat"><b>Release and entry angle</b><small>Read off the fitted ball path, not judged by eye</small></span>
-        <span class="m no">✕</span><span class="m no">✕</span><span class="m yes">✓</span>
+        <span class="cfeat"><b>What you actually get</b></span>
+        <span data-col="Watching replay">An impression</span>
+        <span data-col="General tips">A rule of thumb</span>
+        <span class="cwin" data-col="Shootalyze">Angles measured off your own shot</span>
       </div>
       <div class="crow">
-        <span class="cfeat"><b>Joint angles through the motion</b><small>Elbow and knee frame by frame, not only at release</small></span>
-        <span class="m no">✕</span><span class="m no">✕</span><span class="m yes">✓</span>
+        <span class="cfeat"><b>When it reaches you</b></span>
+        <span data-col="Watching replay">Later, if you rewatch</span>
+        <span data-col="General tips">Whenever you read it</span>
+        <span class="cwin" data-col="Shootalyze">Spoken while you are still shooting</span>
       </div>
       <div class="crow">
-        <span class="cfeat"><b>Made or miss logged for you</b><small>Every attempt counted without tagging clips yourself</small></span>
-        <span class="m part">by hand</span><span class="m no">✕</span><span class="m yes">✓</span>
+        <span class="cfeat"><b>Makes and misses</b></span>
+        <span data-col="Watching replay">You count them</span>
+        <span data-col="General tips">Not covered</span>
+        <span class="cwin" data-col="Shootalyze">Counted for you, attempt by attempt</span>
       </div>
       <div class="crow">
-        <span class="cfeat"><b>Feedback while you are still shooting</b><small>A spoken cue during the session, not after it</small></span>
-        <span class="m no">✕</span><span class="m no">✕</span><span class="m yes">✓</span>
+        <span class="cfeat"><b>Session against session</b></span>
+        <span data-col="Watching replay">From memory</span>
+        <span data-col="General tips">Not covered</span>
+        <span class="cwin" data-col="Shootalyze">The same measurements every time</span>
       </div>
       <div class="crow">
-        <span class="cfeat"><b>Best and worst rep compared</b><small>The two shots side by side, with the angles that differ</small></span>
-        <span class="m part">by hand</span><span class="m no">✕</span><span class="m yes">✓</span>
-      </div>
-      <div class="crow">
-        <span class="cfeat"><b>Whole session summarised</b><small>Shooting percentage and averages, not one clip</small></span>
-        <span class="m part">by hand</span><span class="m no">✕</span><span class="m yes">✓</span>
-      </div>
-      <div class="crow">
-        <span class="cfeat"><b>Drills chosen from your own numbers</b><small>Picked from what the session actually showed</small></span>
-        <span class="m no">✕</span><span class="m part">generic</span><span class="m yes">✓</span>
-      </div>
-      <div class="crow">
-        <span class="cfeat"><b>Based on your body, not a template</b><small>Your own limbs and release, measured where you shoot</small></span>
-        <span class="m part">partly</span><span class="m no">✕</span><span class="m yes">✓</span>
-      </div>
-      <div class="crow">
-        <span class="cfeat"><b>Comparable rep to rep</b><small>Same measurements every session, so a change shows up</small></span>
-        <span class="m no">✕</span><span class="m no">✕</span><span class="m yes">✓</span>
-      </div>
-      <div class="crow">
-        <span class="cfeat"><b>Tells you the one thing to change</b><small>A single cue instead of a list of everything</small></span>
-        <span class="m no">✕</span><span class="m part">generic</span><span class="m yes">✓</span>
+        <span class="cfeat"><b>What to change next</b></span>
+        <span data-col="Watching replay">Your own guess</span>
+        <span data-col="General tips">Generic advice</span>
+        <span class="cwin" data-col="Shootalyze">One cue, from your own numbers</span>
       </div>
     </div>
   </div>
