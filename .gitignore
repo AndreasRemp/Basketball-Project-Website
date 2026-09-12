@@ -28,6 +28,11 @@ assets/img/screen2.jpg
 assets/img/screen3.jpg
 assets/img/screen4.jpg
 
+# 1080p master for the demo clip. The site ships the 720p re-encode, which is
+# 253 KB against the master's 1.1 MB. Regenerate with:
+#   ffmpeg -i demo-1080-master.mp4 -vf scale=1280:-2 -c:v libx264 -crf 26 #     -preset slow -pix_fmt yuv420p -movflags +faststart -an demo.mp4
+assets/video/demo-1080-master.mp4
+
 
 # This is a dependency-free static site. If tooling ever gets added,
 # its install output should not be committed.

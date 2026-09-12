@@ -259,50 +259,6 @@ function animateMetrics() {
   });
 }
 
-/* ---------- How it works: scroll-linked steps ---------- */
-function initHowSteps() {
-  const steps = $$(".how-step");
-  const stages = $$(".how-stage");
-  if (!steps.length) return;
-
-  let active = -1;
-
-  function pick() {
-    // Pick the step whose centre is nearest a fixed line in the viewport.
-    // The previous version used an IntersectionObserver at threshold 0.6 with
-    // a -20% root margin, which only fired when a step filled most of a narrow
-    // band. Short steps never reached it, and because only isIntersecting was
-    // handled, scrolling back up could leave the panel stuck on a later stage.
-    // Nearest-to-a-line is direction independent and always resolves.
-    const line = window.innerHeight * 0.45;
-    let best = 0;
-    let bestDist = Infinity;
-
-    steps.forEach((s, i) => {
-      const r = s.getBoundingClientRect();
-      const dist = Math.abs(r.top + r.height / 2 - line);
-      if (dist < bestDist) { bestDist = dist; best = i; }
-    });
-
-    if (best === active) return;
-    active = best;
-    const n = steps[best].dataset.step;
-    steps.forEach((s, i) => s.classList.toggle("is-active", i === best));
-    stages.forEach(s => s.classList.toggle("is-on", s.dataset.stage === n));
-  }
-
-  let queued = false;
-  function onScroll() {
-    if (queued) return;
-    queued = true;
-    requestAnimationFrame(() => { queued = false; pick(); });
-  }
-
-  pick();
-  window.addEventListener("scroll", onScroll, { passive: true });
-  window.addEventListener("resize", onScroll);
-}
-
 /* ---------- FAQ accordion ---------- */
 function initAccordion() {
   const items = $$(".acc-item");
@@ -418,7 +374,6 @@ initHero();
 initScrollChrome();
 initNavMenu();
 initReveal();
-initHowSteps();
 initAccordion();
 initTilt();
 initScopeParallax();
