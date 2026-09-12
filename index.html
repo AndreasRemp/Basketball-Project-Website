@@ -10,9 +10,18 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Shootalyze" />
+<meta property="og:title" content="Shootalyze | See the numbers behind your shot" />
+<meta property="og:description" content="Film a normal shooting video. Shootalyze measures release angle, joint mechanics and entry angle, then tells you what to fix." />
+<meta name="twitter:card" content="summary_large_image" />
+<!-- og:url and og:image still need the production domain: both must be
+     absolute URLs, so they cannot be written as relative paths. -->
 <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+
+<a class="skip-link" href="#main">Skip to content</a>
 
 <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
 
@@ -40,7 +49,8 @@
   </div>
 </header>
 
-<main id="top">
+<main id="top" tabindex="-1">
+<span id="main"></span>
 
 <!-- ============ HERO ============ -->
 <section class="hero">
@@ -49,7 +59,7 @@
 
     <div class="hero-copy">
       <span class="badge" data-rise="1">
-        <span class="badge-dot"></span>PRE-LAUNCH
+        <span class="badge-dot" aria-hidden="true"></span>PRE-LAUNCH
       </span>
 
       <h1>
@@ -98,7 +108,7 @@
         <span class="scan" aria-hidden="true"></span>
 
         <div class="scope-tag">
-          <span class="dot"></span>TRAJECTORY LOCKED
+          <span class="dot" aria-hidden="true"></span>TRAJECTORY LOCKED
         </div>
       </div>
     </div>
@@ -147,7 +157,7 @@
 <section class="section output" id="output">
   <div class="wrap">
     <div class="section-head" data-reveal>
-      <p class="eyebrow"><span class="live"></span>Real pipeline output</p>
+      <p class="eyebrow"><span class="live" aria-hidden="true"></span>Real pipeline output</p>
       <h2 class="h2">This is not a mockup.</h2>
       <p class="lead">
         Every number, chart and line of feedback below came out of the pipeline for one real
@@ -158,11 +168,12 @@
     <div class="output-stage" data-reveal>
       <div class="panel video-panel">
         <div class="panel-bar">
-          <span class="bar-dots"><i></i><i></i><i></i></span>
+          <span class="bar-dots" aria-hidden="true"><i></i><i></i><i></i></span>
           <span class="bar-title">shot_analysis.mp4</span>
         </div>
         <div class="video-shell">
-          <video id="demoVideo" controls playsinline preload="metadata" poster="assets/img/release-frame.jpg"></video>
+          <video id="demoVideo" controls playsinline muted loop autoplay
+                 preload="metadata" poster="assets/img/video-poster.jpg"></video>
         </div>
       </div>
 
@@ -175,11 +186,11 @@
     <div class="output-charts">
       <div class="panel chart-panel" data-reveal>
         <div class="panel-bar"><span class="bar-title">Elbow angle over frames</span></div>
-        <div class="chart-shell"><img src="assets/img/elbow.png" alt="Elbow angle plotted across frames, rising to full extension at release" /></div>
+        <div class="chart-shell"><img src="assets/img/elbow.png" width="850" height="393" alt="Elbow angle plotted across frames, rising to full extension at release" /></div>
       </div>
       <div class="panel chart-panel" data-reveal data-delay="1">
         <div class="panel-bar"><span class="bar-title">Knee angle over frames</span></div>
-        <div class="chart-shell"><img src="assets/img/knee.png" alt="Knee angle plotted across frames through the shooting motion" /></div>
+        <div class="chart-shell"><img src="assets/img/knee.png" width="850" height="393" alt="Knee angle plotted across frames through the shooting motion" /></div>
       </div>
     </div>
 
@@ -204,21 +215,64 @@
         <h2 class="h2">The same pipeline,<br>in your pocket.</h2>
         <p class="lead">
           A mobile build is in testing. It works through a whole session rather than a
-          single shot, scores it, and points you at the rep worth studying.
+          single shot, calls each attempt as you take it, and ends with your averages
+          and a written report.
         </p>
         <ul class="tick-list">
-          <li>One score for the session, not just for one shot</li>
-          <li>Your best and worst rep side by side, with the angles that separate them</li>
-          <li>The same written coach report, generated for the session</li>
+          <li>Made or miss called automatically, shot by shot</li>
+          <li>A spoken cue during the session, every shot or every fifth</li>
+          <li>Session averages checked against the range the app aims for</li>
+          <li>Your best and worst rep, with the angles that separate them</li>
         </ul>
-        <p class="app-note">Screenshot from the build in testing</p>
+        <p class="app-note">Screenshots from the build in testing</p>
       </div>
 
       <div class="app-shot" data-reveal data-delay="1">
-        <img src="assets/img/app-screen.jpg" width="622" height="1174"
-             alt="The Shootalyze app showing a session scored 73 overall, a best and worst shot compared by release, elbow, arc and entry angle, and a written AI coach report" />
+        <img src="assets/img/app-screen.jpg" width="700" height="1320"
+             alt="The Shootalyze app home screen showing a recent session scored 73 overall, a best and worst shot compared by release, elbow, arc and entry angle, and a written coach report" />
       </div>
     </div>
+
+    <figure class="app-live" data-reveal>
+      <img src="assets/img/live-track.jpg" width="1400" height="657"
+           alt="The app tracking a shot live on an outdoor court: the ball path drawn from release to the rim, the shot called made, and release and entry angle shown at the edge of the screen" />
+      <figcaption>
+        <strong>Live, while you shoot.</strong> The ball path is drawn as the shot
+        happens, the result is called on screen, and the release and entry angle for
+        the last attempt sit at the edge of the frame.
+      </figcaption>
+    </figure>
+
+    <ol class="flow-grid">
+      <li class="flow-step" data-reveal>
+        <span class="flow-idx">01</span>
+        <img src="assets/img/flow-1.jpg" width="560" height="1160"
+             alt="The app home screen with Start Session, Session History, Account and Settings" />
+        <h3>Start a session</h3>
+        <p>Open it and go. Past sessions and their reports stay behind the same screen.</p>
+      </li>
+      <li class="flow-step" data-reveal data-delay="1">
+        <span class="flow-idx">02</span>
+        <img src="assets/img/flow-2.jpg" width="560" height="1168"
+             alt="Session setup: where to place the phone, shooting hand, how often feedback is spoken, a voice feedback toggle and a maximum shot count" />
+        <h3>Set up the shot</h3>
+        <p>Where to stand the phone, which hand you shoot with, how often you want a spoken cue, and how many shots.</p>
+      </li>
+      <li class="flow-step" data-reveal data-delay="2">
+        <span class="flow-idx">03</span>
+        <img src="assets/img/flow-3.jpg" width="560" height="1131"
+             alt="Session results: shooting percentage, counts of made, missed and unsure shots, and average release, entry, elbow and knee angles each marked against an ideal range" />
+        <h3>See the session</h3>
+        <p>Shooting percentage, makes and misses, and your average angles each checked against a target range.</p>
+      </li>
+      <li class="flow-step" data-reveal data-delay="3">
+        <span class="flow-idx">04</span>
+        <img src="assets/img/flow-4.jpg" width="560" height="1139"
+             alt="Best versus worst shot compared by release, elbow, knee and entry angle, followed by a written coach report and a list of recommended drills" />
+        <h3>Read the coaching</h3>
+        <p>Best rep against worst, what to fix first, and the drills that follow from it.</p>
+      </li>
+    </ol>
   </div>
 </section>
 
@@ -317,30 +371,50 @@
 
     <div class="ctable" data-reveal>
       <div class="crow chead">
-        <span></span>
+        <span class="cfeat"></span>
         <span>Watching replay</span>
         <span>General tips</span>
         <span class="chi">Shootalyze</span>
       </div>
       <div class="crow">
-        <span>Exact release and entry angle</span>
+        <span class="cfeat"><b>Release and entry angle</b><small>Read off the fitted ball path, not judged by eye</small></span>
         <span class="m no">✕</span><span class="m no">✕</span><span class="m yes">✓</span>
       </div>
       <div class="crow">
-        <span>Joint angles through the motion</span>
+        <span class="cfeat"><b>Joint angles through the motion</b><small>Elbow and knee frame by frame, not only at release</small></span>
         <span class="m no">✕</span><span class="m no">✕</span><span class="m yes">✓</span>
       </div>
       <div class="crow">
-        <span>Based on your body, not a template</span>
-        <span class="m part">some</span><span class="m no">✕</span><span class="m yes">✓</span>
+        <span class="cfeat"><b>Made or miss logged for you</b><small>Every attempt counted without tagging clips yourself</small></span>
+        <span class="m part">by hand</span><span class="m no">✕</span><span class="m yes">✓</span>
       </div>
       <div class="crow">
-        <span>Comparable rep to rep</span>
+        <span class="cfeat"><b>Feedback while you are still shooting</b><small>A spoken cue during the session, not after it</small></span>
         <span class="m no">✕</span><span class="m no">✕</span><span class="m yes">✓</span>
       </div>
       <div class="crow">
-        <span>Tells you the one thing to change</span>
-        <span class="m no">✕</span><span class="m part">some</span><span class="m yes">✓</span>
+        <span class="cfeat"><b>Best and worst rep compared</b><small>The two shots side by side, with the angles that differ</small></span>
+        <span class="m part">by hand</span><span class="m no">✕</span><span class="m yes">✓</span>
+      </div>
+      <div class="crow">
+        <span class="cfeat"><b>Whole session summarised</b><small>Shooting percentage and averages, not one clip</small></span>
+        <span class="m part">by hand</span><span class="m no">✕</span><span class="m yes">✓</span>
+      </div>
+      <div class="crow">
+        <span class="cfeat"><b>Drills chosen from your own numbers</b><small>Picked from what the session actually showed</small></span>
+        <span class="m no">✕</span><span class="m part">generic</span><span class="m yes">✓</span>
+      </div>
+      <div class="crow">
+        <span class="cfeat"><b>Based on your body, not a template</b><small>Your own limbs and release, measured where you shoot</small></span>
+        <span class="m part">partly</span><span class="m no">✕</span><span class="m yes">✓</span>
+      </div>
+      <div class="crow">
+        <span class="cfeat"><b>Comparable rep to rep</b><small>Same measurements every session, so a change shows up</small></span>
+        <span class="m no">✕</span><span class="m no">✕</span><span class="m yes">✓</span>
+      </div>
+      <div class="crow">
+        <span class="cfeat"><b>Tells you the one thing to change</b><small>A single cue instead of a list of everything</small></span>
+        <span class="m no">✕</span><span class="m part">generic</span><span class="m yes">✓</span>
       </div>
     </div>
   </div>

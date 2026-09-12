@@ -143,9 +143,38 @@ function initReveal() {
 }
 
 /* ---------- Demo section ---------- */
-function renderDemo() {
+/* ---------- Demo video ----------
+   A 3 second silent loop that starts on its own reads as a live demo. Leaving
+   a poster to be clicked made the panel look like a broken player. The file is
+   half the page weight though, so the source is not attached until the panel
+   is near the viewport: someone who bounces at the hero never downloads it. */
+function initDemoVideo() {
   const video = $("#demoVideo");
-  if (video) video.src = DEMO.video;
+  if (!video) return;
+
+  if (prefersReduced) {
+    video.removeAttribute("autoplay");
+    video.removeAttribute("loop");
+  }
+
+  let attached = false;
+  function attach() {
+    if (attached) return;
+    attached = true;
+    video.src = DEMO.video;
+    if (prefersReduced) return;          // controls are still there to press
+    const started = video.play();
+    if (started && typeof started.catch === "function") started.catch(() => {});
+  }
+
+  if (!("IntersectionObserver" in window)) { attach(); return; }
+  const io = new IntersectionObserver((entries) => {
+    if (entries.some(e => e.isIntersecting)) { attach(); io.disconnect(); }
+  }, { rootMargin: "300px 0px" });
+  io.observe(video);
+}
+
+function renderDemo() {
 
   const list = $("#metricList");
   list.innerHTML = "";
@@ -199,18 +228,44 @@ function animateMetrics() {
 function initHowSteps() {
   const steps = $$(".how-step");
   const stages = $$(".how-stage");
-  if (!steps.length || !("IntersectionObserver" in window)) return;
+  if (!steps.length) return;
 
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (!e.isIntersecting) return;
-      const n = e.target.dataset.step;
-      steps.forEach(s => s.classList.toggle("is-active", s === e.target));
-      stages.forEach(s => s.classList.toggle("is-on", s.dataset.stage === n));
+  let active = -1;
+
+  function pick() {
+    // Pick the step whose centre is nearest a fixed line in the viewport.
+    // The previous version used an IntersectionObserver at threshold 0.6 with
+    // a -20% root margin, which only fired when a step filled most of a narrow
+    // band. Short steps never reached it, and because only isIntersecting was
+    // handled, scrolling back up could leave the panel stuck on a later stage.
+    // Nearest-to-a-line is direction independent and always resolves.
+    const line = window.innerHeight * 0.45;
+    let best = 0;
+    let bestDist = Infinity;
+
+    steps.forEach((s, i) => {
+      const r = s.getBoundingClientRect();
+      const dist = Math.abs(r.top + r.height / 2 - line);
+      if (dist < bestDist) { bestDist = dist; best = i; }
     });
-  }, { threshold: 0.6, rootMargin: "-20% 0px -20% 0px" });
 
-  steps.forEach(s => io.observe(s));
+    if (best === active) return;
+    active = best;
+    const n = steps[best].dataset.step;
+    steps.forEach((s, i) => s.classList.toggle("is-active", i === best));
+    stages.forEach(s => s.classList.toggle("is-on", s.dataset.stage === n));
+  }
+
+  let queued = false;
+  function onScroll() {
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(() => { queued = false; pick(); });
+  }
+
+  pick();
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onScroll);
 }
 
 /* ---------- FAQ accordion ---------- */
@@ -251,17 +306,23 @@ function initTilt() {
       // Chase the pointer instead of snapping to it. Binding a transform
       // straight to cursor position reads as artificial because it carries no
       // momentum; easing toward the target each frame gives it weight.
-      cx += (tx - cx) * 0.12;
-      cy += (ty - cy) * 0.12;
-      lift += (targetLift - lift) * 0.12;
+      // Returning to rest is faster than following the pointer. Exits should
+      // outpace entrances, and at 0.12 the card took most of a second to
+      // fully unwind, which reads as lag rather than weight.
+      const k = targetLift === 0 ? 0.2 : 0.12;
+      cx += (tx - cx) * k;
+      cy += (ty - cy) * k;
+      lift += (targetLift - lift) * k;
 
       card.style.transform =
         `perspective(900px) rotateX(${(-cy * 4).toFixed(3)}deg) ` +
         `rotateY(${(cx * 4).toFixed(3)}deg) translateY(${lift.toFixed(2)}px)`;
 
+      // 0.002 of a half-width is 0.008deg of rotation, well below anything
+      // visible, so there is no point burning frames converging past it
       const settled =
-        Math.abs(tx - cx) < 0.0005 &&
-        Math.abs(ty - cy) < 0.0005 &&
+        Math.abs(tx - cx) < 0.002 &&
+        Math.abs(ty - cy) < 0.002 &&
         Math.abs(targetLift - lift) < 0.02;
 
       if (!settled) {
@@ -317,6 +378,7 @@ function initScopeParallax() {
 
 /* ---------- Boot ---------- */
 renderDemo();
+initDemoVideo();
 initHero();
 initScrollChrome();
 initNavMenu();
