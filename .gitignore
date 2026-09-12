@@ -22,10 +22,6 @@ assets/img/app1.png
 assets/img/release.png
 assets/img/old_logo.jpg
 
-# Staged promotional composite, not pipeline output. Deliberately unreferenced:
-# the #output section claims nothing on the page is illustrative, so this one
-# needs a decision about placement before it ships.
-assets/img/presentation.jpg
 
 # This is a dependency-free static site. If tooling ever gets added,
 # its install output should not be committed.
