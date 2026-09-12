@@ -10,6 +10,7 @@ desktop.ini
 
 # Local working notes, not part of the site
 CLAUDE.md
+STATUS.md
 
 # Source master for the logo, kept locally. The site uses the resized
 # logo-mark.png and favicon.png generated from it.
